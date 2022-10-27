@@ -1,0 +1,15 @@
+D:\project\ProblemTracking\ProblemTracking.Service\bin\Debug\net5.0\ProblemTracking.Service.deps.json
+D:\project\ProblemTracking\ProblemTracking.Service\bin\Debug\net5.0\ProblemTracking.Service.dll
+D:\project\ProblemTracking\ProblemTracking.Service\bin\Debug\net5.0\ProblemTracking.Service.pdb
+D:\project\ProblemTracking\ProblemTracking.Service\bin\Debug\net5.0\ProblemTracking.Entity.dll
+D:\project\ProblemTracking\ProblemTracking.Service\bin\Debug\net5.0\ProblemTracking.Entity.pdb
+D:\project\ProblemTracking\ProblemTracking.Service\obj\Debug\net5.0\ProblemTracking.Service.csproj.AssemblyReference.cache
+D:\project\ProblemTracking\ProblemTracking.Service\obj\Debug\net5.0\ProblemTracking.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\project\ProblemTracking\ProblemTracking.Service\obj\Debug\net5.0\ProblemTracking.Service.AssemblyInfoInputs.cache
+D:\project\ProblemTracking\ProblemTracking.Service\obj\Debug\net5.0\ProblemTracking.Service.AssemblyInfo.cs
+D:\project\ProblemTracking\ProblemTracking.Service\obj\Debug\net5.0\ProblemTracking.Service.csproj.CoreCompileInputs.cache
+D:\project\ProblemTracking\ProblemTracking.Service\obj\Debug\net5.0\ProblemTracking.Service.csproj.CopyComplete
+D:\project\ProblemTracking\ProblemTracking.Service\obj\Debug\net5.0\ProblemTracking.Service.dll
+D:\project\ProblemTracking\ProblemTracking.Service\obj\Debug\net5.0\refint\ProblemTracking.Service.dll
+D:\project\ProblemTracking\ProblemTracking.Service\obj\Debug\net5.0\ProblemTracking.Service.pdb
+D:\project\ProblemTracking\ProblemTracking.Service\obj\Debug\net5.0\ref\ProblemTracking.Service.dll
