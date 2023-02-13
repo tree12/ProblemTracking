@@ -36,8 +36,8 @@ This project contains 3 project
 ## ProblemTracking.Entity
 This project use to interact with database. It contain entities and migration script.
 
-## ProblemTracking.Service
-This project use to manipulate the entity such as query, insert data. It is the middle of web project and entity project. It contaian of service and DTO class.
+## ProblemTracking.Repository
+This project use to manipulate the entity such as query, insert data. It is the middle of web project and entity project. It contaian of repository interface and unit of work class.
 
 ## ProblemTracking.Web
 This project is the web project which interact with user. It contain web api and Angular component.
