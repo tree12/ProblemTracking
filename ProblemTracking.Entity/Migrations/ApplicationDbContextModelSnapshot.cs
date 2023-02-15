@@ -58,89 +58,6 @@ namespace ProblemTracking.Entity.Migrations
                     b.HasIndex("MachineId");
 
                     b.ToTable("InvestigateStep");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 305, DateTimeKind.Local).AddTicks(6383),
-                            MachineId = 1,
-                            Order = 1,
-                            StepDetail = "Normally, this machince stuck because of some object break it.",
-                            StepName = "Step1 Check surface"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 305, DateTimeKind.Local).AddTicks(7038),
-                            MachineId = 1,
-                            Order = 2,
-                            StepDetail = "Make sure you not unplug it.",
-                            StepName = "Step2 Check electricity"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 305, DateTimeKind.Local).AddTicks(7042),
-                            MachineId = 1,
-                            Order = 3,
-                            StepDetail = "Sometime we use it all day.",
-                            StepName = "Step3 Check all liquid"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 305, DateTimeKind.Local).AddTicks(7044),
-                            MachineId = 2,
-                            Order = 1,
-                            StepDetail = "Normally, this machince stuck because of some object break it.2",
-                            StepName = "Step1 Check surface 2 "
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 305, DateTimeKind.Local).AddTicks(7045),
-                            MachineId = 2,
-                            Order = 2,
-                            StepDetail = "Make sure you not unplug it.2",
-                            StepName = "Step2 Check electricity 2"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 305, DateTimeKind.Local).AddTicks(7046),
-                            MachineId = 2,
-                            Order = 3,
-                            StepDetail = "Sometime we use it all day.2",
-                            StepName = "Step3 Check all liquid 2"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 305, DateTimeKind.Local).AddTicks(7047),
-                            MachineId = 3,
-                            Order = 1,
-                            StepDetail = "Normally, this machince stuck because of some object break it.3",
-                            StepName = "Step1 Check surface 3 "
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 305, DateTimeKind.Local).AddTicks(7551),
-                            MachineId = 3,
-                            Order = 2,
-                            StepDetail = "Make sure you not unplug it.3",
-                            StepName = "Step2 Check electricity 3"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 305, DateTimeKind.Local).AddTicks(7555),
-                            MachineId = 3,
-                            Order = 3,
-                            StepDetail = "Sometime we use it all day.3",
-                            StepName = "Step3 Check all liquid 2"
-                        });
                 });
 
             modelBuilder.Entity("ProblemTracking.Entity.Entities.Machine", b =>
@@ -173,29 +90,6 @@ namespace ProblemTracking.Entity.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Machine");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 304, DateTimeKind.Local).AddTicks(2407),
-                            MachineDescription = "This machine use outside factory plaese investigate dust issue.",
-                            MachineName = "Machine1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 304, DateTimeKind.Local).AddTicks(8966),
-                            MachineDescription = "This machine use outside factory plaese investigate dust issue.",
-                            MachineName = "Machine1"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 304, DateTimeKind.Local).AddTicks(8980),
-                            MachineDescription = "This machine use outside factory plaese investigate dust issue.",
-                            MachineName = "Machine1"
-                        });
                 });
 
             modelBuilder.Entity("ProblemTracking.Entity.Entities.Problem", b =>
@@ -218,6 +112,9 @@ namespace ProblemTracking.Entity.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MachineId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
@@ -232,6 +129,8 @@ namespace ProblemTracking.Entity.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MachineId");
 
                     b.HasIndex("UserId");
 
@@ -314,35 +213,6 @@ namespace ProblemTracking.Entity.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("80d36942-b9be-4c34-8fc9-9761f33eb210"),
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 305, DateTimeKind.Local).AddTicks(9526),
-                            FirstName = "Hamlet",
-                            LastName = "last 1",
-                            Password = "12345",
-                            UserName = "User1"
-                        },
-                        new
-                        {
-                            Id = new Guid("d737bd1a-28e6-47b7-ab6e-1c755f63178f"),
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 306, DateTimeKind.Local).AddTicks(98),
-                            FirstName = "King Lear",
-                            LastName = "last 2",
-                            Password = "12345",
-                            UserName = "User2"
-                        },
-                        new
-                        {
-                            Id = new Guid("79a48d2d-1ce4-49c0-a75e-b7ebd7be8576"),
-                            CreatedDate = new DateTime(2022, 10, 26, 19, 18, 42, 306, DateTimeKind.Local).AddTicks(103),
-                            FirstName = "Othello",
-                            LastName = "last 3",
-                            Password = "12345",
-                            UserName = "User3"
-                        });
                 });
 
             modelBuilder.Entity("ProblemTracking.Entity.Entities.InvestigateStep", b =>
@@ -358,9 +228,15 @@ namespace ProblemTracking.Entity.Migrations
 
             modelBuilder.Entity("ProblemTracking.Entity.Entities.Problem", b =>
                 {
+                    b.HasOne("ProblemTracking.Entity.Entities.Machine", "Machine")
+                        .WithMany()
+                        .HasForeignKey("MachineId");
+
                     b.HasOne("ProblemTracking.Entity.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Machine");
 
                     b.Navigation("User");
                 });

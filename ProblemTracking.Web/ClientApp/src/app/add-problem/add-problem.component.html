@@ -1,0 +1,19 @@
+<p>{{data.machineName}}</p>
+<form class="problem-form" [formGroup]="problemForm" (ngSubmit)="submitForm()">
+
+    <div class="d-flex flex-column">
+        <div class="p-2">
+
+            <mat-form-field class="example-full-width w-100">
+                <input matInput placeholder="Problem name" value="" formControlName="topic">
+            </mat-form-field>
+        </div>
+        <div class="p-2">
+
+            <mat-form-field class="example-full-width w-100">
+                <textarea matInput placeholder="Problem description" rows="5" formControlName="description"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="p-2" style="text-align: right"> <button mat-raised-button color="primary">Add problem</button></div>
+    </div>
+</form>

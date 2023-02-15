@@ -20,7 +20,9 @@ import { HttpInterceptorService } from './shared/services/http-interceptor.servi
 import { ErrorInterceptorService } from './shared/services/error-interceptor.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCheckboxModule } from '@angular/material/checkbox'; 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AddProblemComponent } from './add-problem/add-problem.component'; 
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -31,12 +33,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     LoginComponent,
     UserComponent, ViewProblemComponent,
     FetchDataComponent,
-    StepChangeComponent
+    StepChangeComponent,
+    AddProblemComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule, BrowserAnimationsModule,
-    FormsModule, ReactiveFormsModule, MatDialogModule, MatCheckboxModule,
+      FormsModule, ReactiveFormsModule, MatDialogModule, MatCheckboxModule, MatInputModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent, pathMatch: 'full' },
       //{ path: 'counter', component: CounterComponent },
@@ -46,7 +49,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
       { path: 'admin', component: FetchDataComponent, canActivate: [AdminGuard] },
     ])
   ],
-  entryComponents: [StepChangeComponent],
+  entryComponents: [StepChangeComponent, AddProblemComponent],
   providers: [{provide: API_BASE_URL, useValue: (window.location.origin).replace(/\/+$/, '')
     //provide: API_BASE_URL, useValue: ("http://localhost:5201")
   },

@@ -28,10 +28,29 @@
       <td>{{ machine.id }}</td>
       <td>{{ machine.machineName }}</td>
       <td>{{ machine.machineDescription }}</td>
-      <td><input type="button" (click)="openDialog(machine)" value="Investigation"/></td>
+      <td><input type="button" (click)="openDialog(machine)" value="Investigation"/><input type="button" (click)="addProblemDialog(machine)" value="Add Problem" /></td>
     </tr>
   </tbody>
 </table>
 <p *ngIf="alreadySave" style="color:green">Save successfully.</p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="problems">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Machine Name</th>
+        <th>Description</th>
+        <th>Step to investigate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let problem of problems">
+        <td>{{ machine.id }}</td>
+        <td>{{ machine.machineName }}</td>
+        <td>{{ machine.machineDescription }}</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
 
 

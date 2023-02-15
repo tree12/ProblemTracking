@@ -1,0 +1,15 @@
+D:\Tree\ProblemTracking\ProblemTracking.Repository\bin\Debug\net5.0\ProblemTracking.Repository.deps.json
+D:\Tree\ProblemTracking\ProblemTracking.Repository\bin\Debug\net5.0\ProblemTracking.Repository.dll
+D:\Tree\ProblemTracking\ProblemTracking.Repository\bin\Debug\net5.0\ProblemTracking.Repository.pdb
+D:\Tree\ProblemTracking\ProblemTracking.Repository\bin\Debug\net5.0\ProblemTracking.Entity.dll
+D:\Tree\ProblemTracking\ProblemTracking.Repository\bin\Debug\net5.0\ProblemTracking.Entity.pdb
+D:\Tree\ProblemTracking\ProblemTracking.Repository\obj\Debug\net5.0\ProblemTracking.Repository.csproj.AssemblyReference.cache
+D:\Tree\ProblemTracking\ProblemTracking.Repository\obj\Debug\net5.0\ProblemTracking.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\Tree\ProblemTracking\ProblemTracking.Repository\obj\Debug\net5.0\ProblemTracking.Repository.AssemblyInfoInputs.cache
+D:\Tree\ProblemTracking\ProblemTracking.Repository\obj\Debug\net5.0\ProblemTracking.Repository.AssemblyInfo.cs
+D:\Tree\ProblemTracking\ProblemTracking.Repository\obj\Debug\net5.0\ProblemTracking.Repository.csproj.CoreCompileInputs.cache
+D:\Tree\ProblemTracking\ProblemTracking.Repository\obj\Debug\net5.0\ProblemTracking.Repository.csproj.CopyComplete
+D:\Tree\ProblemTracking\ProblemTracking.Repository\obj\Debug\net5.0\ProblemTracking.Repository.dll
+D:\Tree\ProblemTracking\ProblemTracking.Repository\obj\Debug\net5.0\refint\ProblemTracking.Repository.dll
+D:\Tree\ProblemTracking\ProblemTracking.Repository\obj\Debug\net5.0\ProblemTracking.Repository.pdb
+D:\Tree\ProblemTracking\ProblemTracking.Repository\obj\Debug\net5.0\ref\ProblemTracking.Repository.dll

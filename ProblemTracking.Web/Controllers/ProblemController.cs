@@ -32,6 +32,7 @@ namespace ProblemTracking.Web.Controllers
         [Authorize(Policy = "User")]
         public int AddProblem([FromBody] ProblemViewModel problem)
         {
+            problem.User = new UserViewModel() { UserName = User.Identity.Name };
             int lastId = Service.SaveProblem(problem);
             return lastId;
         }
