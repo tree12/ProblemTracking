@@ -1,0 +1,14 @@
+
+*.csproj.user
+*.DotSettings.user
+
+
+/ProblemTracking.Web/ClientApp/node_modules
+/ProblemTracking.Web/obj
+/.vs
+/ProblemTracking.Entity/bin/Debug/net5.0
+/ProblemTracking.Entity/obj
+/ProblemTracking.Repository/bin/Debug/net5.0
+/ProblemTracking.Repository/obj/Debug/net5.0
+/ProblemTracking.Web/bin/Debug/net5.0
+/ProblemTracking.Repository/obj
