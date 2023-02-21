@@ -23,7 +23,9 @@ export class AddProblemComponent implements OnInit {
 
     submitForm() {
         if (this.problemForm.valid) {
+            this.data;
             let problem = new ProblemViewModel();
+            problem.machine = this.data;
             problem.problemName = this.problemForm.controls["topic"].value;
             problem.description = this.problemForm.controls["description"].value;
             problem.solveStatus = SolveEnum.Pending; 

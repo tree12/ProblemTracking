@@ -24,6 +24,6 @@ namespace ProblemTracking.Entity.Entities
         public string? ModifiedUserId { get; set; }
 
 
-       
+
     }
 }

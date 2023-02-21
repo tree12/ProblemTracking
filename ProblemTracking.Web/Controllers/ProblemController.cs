@@ -28,6 +28,13 @@ namespace ProblemTracking.Web.Controllers
             var problems = Service.GetProblems();
             return problems;
         }
+        [HttpGet("getProblemsByUser")]
+        [Authorize(Policy = "User")]
+        public List<ProblemViewModel> GetAllProblems(string userName)
+        {
+            var problems = Service.GetProblems(userName);
+            return problems;
+        }
         [HttpPost("addProblem")]
         [Authorize(Policy = "User")]
         public int AddProblem([FromBody] ProblemViewModel problem)

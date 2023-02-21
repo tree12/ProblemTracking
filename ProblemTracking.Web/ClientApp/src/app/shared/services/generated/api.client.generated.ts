@@ -330,6 +330,64 @@ export class ProblemClient {
         return _observableOf<ProblemViewModel[]>(null as any);
     }
 
+    getAllProblems2(userName: string | null | undefined): Observable<ProblemViewModel[]> {
+        let url_ = this.baseUrl + "/api/Problem/getProblemsByUser?";
+        if (userName !== undefined && userName !== null)
+            url_ += "userName=" + encodeURIComponent("" + userName) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllProblems2(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllProblems2(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ProblemViewModel[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ProblemViewModel[]>;
+        }));
+    }
+
+    protected processGetAllProblems2(response: HttpResponseBase): Observable<ProblemViewModel[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ProblemViewModel.fromJS(item, _mappings));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProblemViewModel[]>(null as any);
+    }
+
     addProblem(problem: ProblemViewModel): Observable<number> {
         let url_ = this.baseUrl + "/api/Problem/addProblem";
         url_ = url_.replace(/[?&]$/, "");
@@ -486,76 +544,6 @@ export class ProblemClient {
             }));
         }
         return _observableOf<FileResponse | null>(null as any);
-    }
-}
-
-@Injectable({
-    providedIn: 'root'
-})
-export class WeatherForecastClient {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:44367";
-    }
-
-    get(): Observable<WeatherForecast[]> {
-        let url_ = this.baseUrl + "/WeatherForecast";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGet(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGet(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<WeatherForecast[]>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<WeatherForecast[]>;
-        }));
-    }
-
-    protected processGet(response: HttpResponseBase): Observable<WeatherForecast[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        let _mappings: { source: any, target: any }[] = [];
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(WeatherForecast.fromJS(item, _mappings));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<WeatherForecast[]>(null as any);
     }
 }
 
@@ -773,6 +761,7 @@ export class ProblemViewModel extends BaseViewModelOfInteger implements IProblem
     description?: string | undefined;
     active!: boolean;
     user?: UserViewModel | undefined;
+    machine?: MachineViewModel | undefined;
     solveStatus!: SolveEnum;
     suceesInvestigateName?: string | undefined;
 
@@ -787,6 +776,7 @@ export class ProblemViewModel extends BaseViewModelOfInteger implements IProblem
             this.description = _data["description"];
             this.active = _data["active"];
             this.user = _data["user"] ? UserViewModel.fromJS(_data["user"], _mappings) : <any>undefined;
+            this.machine = _data["machine"] ? MachineViewModel.fromJS(_data["machine"], _mappings) : <any>undefined;
             this.solveStatus = _data["solveStatus"];
             this.suceesInvestigateName = _data["suceesInvestigateName"];
         }
@@ -803,6 +793,7 @@ export class ProblemViewModel extends BaseViewModelOfInteger implements IProblem
         data["description"] = this.description;
         data["active"] = this.active;
         data["user"] = this.user ? this.user.toJSON() : <any>undefined;
+        data["machine"] = this.machine ? this.machine.toJSON() : <any>undefined;
         data["solveStatus"] = this.solveStatus;
         data["suceesInvestigateName"] = this.suceesInvestigateName;
         super.toJSON(data);
@@ -815,6 +806,7 @@ export interface IProblemViewModel extends IBaseViewModelOfInteger {
     description?: string | undefined;
     active: boolean;
     user?: UserViewModel | undefined;
+    machine?: MachineViewModel | undefined;
     solveStatus: SolveEnum;
     suceesInvestigateName?: string | undefined;
 }
@@ -866,52 +858,6 @@ export interface IProblemInvestigateViewModel extends IBaseViewModelOfString {
     stepToSolved?: InvestigateStepViewModel | undefined;
     solveStatus: SolveEnum;
     picture?: string | undefined;
-}
-
-export class WeatherForecast implements IWeatherForecast {
-    date!: moment.Moment;
-    temperatureC!: number;
-    temperatureF!: number;
-    summary?: string | undefined;
-
-    constructor(data?: IWeatherForecast) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any, _mappings?: any) {
-        if (_data) {
-            this.date = _data["date"] ? moment(_data["date"].toString()) : <any>undefined;
-            this.temperatureC = _data["temperatureC"];
-            this.temperatureF = _data["temperatureF"];
-            this.summary = _data["summary"];
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): WeatherForecast | null {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<WeatherForecast>(data, _mappings, WeatherForecast);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
-        data["temperatureC"] = this.temperatureC;
-        data["temperatureF"] = this.temperatureF;
-        data["summary"] = this.summary;
-        return data;
-    }
-}
-
-export interface IWeatherForecast {
-    date: moment.Moment;
-    temperatureC: number;
-    temperatureF: number;
-    summary?: string | undefined;
 }
 
 function jsonParse(json: any, reviver?: any) {

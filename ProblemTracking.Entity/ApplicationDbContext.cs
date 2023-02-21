@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using ProblemTracking.Entity;
 using Microsoft.AspNetCore.Http;
 using System.Reflection.Emit;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using ProblemTracking.Entity.Entities.Interfaces;
 //using System.Reflection.PortableExecutable;
 
 namespace ProblemTracking.Entity
@@ -30,7 +32,7 @@ namespace ProblemTracking.Entity
         {
         }
 
-        public ApplicationDbContext(DbContextOptions options, IHttpContextAccessor httpContextAccessor, IServiceProvider serviceProvider)
+        public ApplicationDbContext(DbContextOptions options, IHttpContextAccessor httpContextAccessor, IServiceProvider serviceProvider) : base(options)
         {
             ServiceProvider = serviceProvider;
             HttpContextAccessor = httpContextAccessor;
@@ -45,6 +47,28 @@ namespace ProblemTracking.Entity
             //Seeder(modelBuilder);
 
         }
+
+        public override int SaveChanges()
+        {
+            
+            var dbEntityEnties = ChangeTracker.Entries()
+                .Where(x => x.Entity is IEntityObjectBase &&
+                            (x.State == EntityState.Added || x.State == EntityState.Modified));
+            foreach (var entityEntry in dbEntityEnties)
+            {
+                ((IEntityObjectBase)entityEntry.Entity).ModifiedDate = DateTime.Now;
+                ((IEntityObjectBase)entityEntry.Entity).ModifiedUserId = CurrentUserData.Id;
+
+                if (((IEntityObjectBase)entityEntry.Entity).CreatedDate ==null)
+                {
+                    ((IEntityObjectBase)entityEntry.Entity).CreatedDate = DateTime.Now;
+                    ((IEntityObjectBase)entityEntry.Entity).CreatedUserId = CurrentUserData.Id;
+                }
+
+            }
+            return base.SaveChanges();
+        }
+
         private void Seeder(ModelBuilder modelBuilder) {
 
             modelBuilder.Entity<Machine>().HasData(

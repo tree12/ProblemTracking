@@ -22,10 +22,10 @@ namespace ProblemTracking.Web.Services
             _configuration = configuration;
         }
 
-        public List<ProblemViewModel> GetProblems()
+        public List<ProblemViewModel> GetProblems(string userName = "")
         {
 
-            var results = unitOfWork.ProblemRepository.Get(null, null, nameof(Problem.User)).ToList();
+            var results = string.IsNullOrEmpty(userName) ? unitOfWork.ProblemRepository.Get(null, null, nameof(Problem.User)).ToList(): unitOfWork.ProblemRepository.Get(x=>x.User.UserName == userName, null, nameof(Problem.User)).ToList();
             var resultView = results.Adapt<List<ProblemViewModel>>();
             var investigates = unitOfWork.ProblemInvestigateRepository.Get(null,null,nameof(ProblemInvestigate.StepToSolved)+","+ nameof(ProblemInvestigate.Problem), false).ToList();
             resultView.ForEach(eachResult => { 
@@ -46,7 +46,15 @@ namespace ProblemTracking.Web.Services
                 problem.User = unitOfWork.UserRepository.FindByCondition(x => x.UserName == problem.User.UserName).FirstOrDefault();
             }
 
+            if (problem.Machine != null)
+            {
+                problem.Machine = unitOfWork.MachineRepository.FindByCondition(x => x.Id == problemView.Machine.Id)
+                    .FirstOrDefault();
+            }
+
             unitOfWork.ProblemRepository.Create(problem);
+            unitOfWork.context.Entry(problem.User).State = EntityState.Unchanged;
+            unitOfWork.context.Entry(problem.Machine).State = EntityState.Unchanged;
             unitOfWork.Save();
             return problem.Id;
         }

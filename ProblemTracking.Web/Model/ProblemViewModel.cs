@@ -13,6 +13,7 @@ namespace ProblemTracking.Web.Model
         public string Description { get; set; }
         public bool Active { get; set; }
         public UserViewModel User { get; set; }
+        public MachineViewModel Machine { get; set; }
 
         public SolveEnum SolveStatus { get; set; }
         public string SuceesInvestigateName { get; set; }

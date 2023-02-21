@@ -23,6 +23,7 @@ export class UserComponent implements OnInit {
     this.authService.userData.subscribe(u => {
       this.user = u;
     });
+    this.problemClient.getAllProblems().subscribe(x => { this.problems = x; });
     this.machineClient.getMachines().subscribe(x => this.machines = x);
   }
   openDialog(machine: MachineViewModel) {
@@ -59,6 +60,10 @@ export class UserComponent implements OnInit {
             data: machine,
             width: '400px',
             height: '400px'
+        });
+
+        dialogRef.afterClosed().subscribe(x => {
+            this.problemClient.getAllProblems().subscribe(x => { this.problems = x; });
         });
     }
 }

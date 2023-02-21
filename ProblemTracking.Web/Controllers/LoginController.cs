@@ -55,6 +55,7 @@ namespace ProblemTracking.Web.Controllers
 
             var claims = new[]
             {
+                new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.UserName),
                 new Claim(JwtRegisteredClaimNames.Sub, userInfo.UserName),
                 new Claim("firstName", userInfo.FirstName.ToString()),
                 new Claim("role",userInfo.Role),
