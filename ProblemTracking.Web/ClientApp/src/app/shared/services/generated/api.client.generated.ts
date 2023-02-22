@@ -208,6 +208,66 @@ export class MachineClient {
         return _observableOf<MachineViewModel[]>(null as any);
     }
 
+    getInvestigateStep(machineId: number | undefined): Observable<InvestigateStepViewModel[]> {
+        let url_ = this.baseUrl + "/api/Machine/getInvestigateStep?";
+        if (machineId === null)
+            throw new Error("The parameter 'machineId' cannot be null.");
+        else if (machineId !== undefined)
+            url_ += "machineId=" + encodeURIComponent("" + machineId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetInvestigateStep(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetInvestigateStep(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<InvestigateStepViewModel[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<InvestigateStepViewModel[]>;
+        }));
+    }
+
+    protected processGetInvestigateStep(response: HttpResponseBase): Observable<InvestigateStepViewModel[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(InvestigateStepViewModel.fromJS(item, _mappings));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<InvestigateStepViewModel[]>(null as any);
+    }
+
     index(): Observable<FileResponse | null> {
         let url_ = this.baseUrl + "/api/Machine";
         url_ = url_.replace(/[?&]$/, "");
@@ -330,7 +390,7 @@ export class ProblemClient {
         return _observableOf<ProblemViewModel[]>(null as any);
     }
 
-    getAllProblems2(userName: string | null | undefined): Observable<ProblemViewModel[]> {
+    getProblemsByUser(userName: string | null | undefined): Observable<ProblemViewModel[]> {
         let url_ = this.baseUrl + "/api/Problem/getProblemsByUser?";
         if (userName !== undefined && userName !== null)
             url_ += "userName=" + encodeURIComponent("" + userName) + "&";
@@ -345,11 +405,11 @@ export class ProblemClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllProblems2(response_);
+            return this.processGetProblemsByUser(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAllProblems2(response_ as any);
+                    return this.processGetProblemsByUser(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<ProblemViewModel[]>;
                 }
@@ -358,7 +418,7 @@ export class ProblemClient {
         }));
     }
 
-    protected processGetAllProblems2(response: HttpResponseBase): Observable<ProblemViewModel[]> {
+    protected processGetProblemsByUser(response: HttpResponseBase): Observable<ProblemViewModel[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :

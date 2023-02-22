@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MachineViewModel, InvestigateStepViewModel, ProblemClient, ProblemInvestigateViewModel } from '../shared/services/generated/api.client.generated';
+import { MachineViewModel, InvestigateStepViewModel, ProblemClient, MachineClient } from '../shared/services/generated/api.client.generated';
 
 @Component({
   selector: 'app-step-change',
@@ -11,15 +11,18 @@ export class StepChangeComponent implements OnInit {
   investigateSteps: InvestigateStepViewModel[];
   selectInvestigateStep: InvestigateStepViewModel;
   machineName: string;
-    constructor(@Inject(MAT_DIALOG_DATA) public data: MachineViewModel, public problemClient: ProblemClient, public dialogRef: MatDialogRef<StepChangeComponent>) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: MachineViewModel, public problemClient: ProblemClient, public machineClient: MachineClient, public dialogRef: MatDialogRef<StepChangeComponent>) { }
 
   ngOnInit(): void {
     if (this.data) {
-      this.machineName = this.data.machineName;
-      this.investigateSteps = this.data.investigateSteps;
-      this.investigateSteps.sort(function (a, b) {
-        return a.order - b.order;
-      });
+        this.machineName = this.data.machineName;
+        this.machineClient.getInvestigateStep(this.data.id).subscribe(x => {
+            this.investigateSteps = x;
+            this.investigateSteps.sort(function (a, b) {
+                return a.order - b.order;
+            });
+        });
+
     }
       
   }

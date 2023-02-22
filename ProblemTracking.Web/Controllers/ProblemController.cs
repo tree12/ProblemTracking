@@ -30,7 +30,7 @@ namespace ProblemTracking.Web.Controllers
         }
         [HttpGet("getProblemsByUser")]
         [Authorize(Policy = "User")]
-        public List<ProblemViewModel> GetAllProblems(string userName)
+        public List<ProblemViewModel> GetProblemsByUser(string userName)
         {
             var problems = Service.GetProblems(userName);
             return problems;

@@ -22,5 +22,11 @@ namespace ProblemTracking.Web.Controllers
         {
             return Service.GetMachines();
         }
+        [HttpGet("getInvestigateStep")]
+        [Authorize(Policy = "User")]
+        public List<InvestigateStepViewModel> GetInvestigateStep(int machineId)
+        {
+            return Service.GetInvestigateStep(machineId);
+        }
     }
 }

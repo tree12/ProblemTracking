@@ -28,7 +28,7 @@
       <td>{{ machine.id }}</td>
       <td>{{ machine.machineName }}</td>
       <td>{{ machine.machineDescription }}</td>
-      <td><input type="button" (click)="openDialog(machine)" value="Investigation"/><input type="button" (click)="addProblemDialog(machine)" value="Add Problem" /></td>
+      <td><input type="button" (click)="addProblemDialog(machine)" value="Add Problem" /></td>
     </tr>
   </tbody>
 </table>
@@ -36,20 +36,22 @@
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="problems">
     <thead>
-    <tr>
-        <th>Id</th>
-        <th>Machine Name</th>
-        <th>Description</th>
-        <th>Step to investigate</th>
-    </tr>
+        <tr>
+            <th>Id</th>
+            <th>Machine</th>
+            <th>Problem Title</th>
+            <th>Status</th>
+            <th>Step to investigate</th>
+        </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let problem of problems">
-        <td>{{ machine.id }}</td>
-        <td>{{ machine.machineName }}</td>
-        <td>{{ machine.machineDescription }}</td>
-        <td></td>
-    </tr>
+        <tr *ngFor="let problem of problems">
+            <td>{{ problem.id }}</td>
+            <td>{{ problem.machine.machineName }}</td>
+            <td>{{ problem.problemName }}</td>
+            <td>{{ GetStatusName(problem.solveStatus) }}</td>
+            <td><input type="button" (click)="openDialog(problem)" value="Investigation" /></td>
+        </tr>
     </tbody>
 </table>
 

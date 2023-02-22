@@ -14,7 +14,7 @@ using ProblemTracking.Repository;
 
 namespace ProblemTracking.Web.Services
 {
-    public class ProblemService : BaseService<ProblemViewModel,int>
+    public class ProblemService : BaseService<ProblemViewModel, int>
     {
         private IConfiguration _configuration { get; }
         public ProblemService(UnitOfWork unitOfWork, IConfiguration configuration) : base(unitOfWork)
@@ -25,21 +25,24 @@ namespace ProblemTracking.Web.Services
         public List<ProblemViewModel> GetProblems(string userName = "")
         {
 
-            var results = string.IsNullOrEmpty(userName) ? unitOfWork.ProblemRepository.Get(null, null, nameof(Problem.User)).ToList(): unitOfWork.ProblemRepository.Get(x=>x.User.UserName == userName, null, nameof(Problem.User)).ToList();
+            var results = string.IsNullOrEmpty(userName) ? unitOfWork.ProblemRepository.Get(null, null, nameof(Problem.User) + "," + nameof(Problem.Machine)).ToList() : unitOfWork.ProblemRepository.Get(x => x.User.UserName == userName, null, nameof(Problem.User) + "," + nameof(Problem.Machine)).ToList();
             var resultView = results.Adapt<List<ProblemViewModel>>();
-            var investigates = unitOfWork.ProblemInvestigateRepository.Get(null,null,nameof(ProblemInvestigate.StepToSolved)+","+ nameof(ProblemInvestigate.Problem), false).ToList();
-            resultView.ForEach(eachResult => { 
-            var investigate = investigates.FirstOrDefault(x => x.Problem?.Id == eachResult.Id);
-                if (investigate != null) {
+            var investigates = unitOfWork.ProblemInvestigateRepository.Get(null, null, nameof(ProblemInvestigate.StepToSolved) + "," + nameof(ProblemInvestigate.Problem), false).ToList();
+            resultView.ForEach(eachResult =>
+            {
+                var investigate = investigates.FirstOrDefault(x => x.Problem?.Id == eachResult.Id);
+                if (investigate != null)
+                {
                     eachResult.SolveStatus = investigate.SolveStatus;
                     eachResult.SuceesInvestigateName = investigate?.StepToSolved?.StepName;
                 }
-             
+
             });
 
             return resultView;
         }
-        public int SaveProblem(ProblemViewModel problemView) {
+        public int SaveProblem(ProblemViewModel problemView)
+        {
             var problem = problemView.Adapt<Problem>();
             if (problem.User != null)
             {
@@ -53,8 +56,10 @@ namespace ProblemTracking.Web.Services
             }
 
             unitOfWork.ProblemRepository.Create(problem);
-            unitOfWork.context.Entry(problem.User).State = EntityState.Unchanged;
-            unitOfWork.context.Entry(problem.Machine).State = EntityState.Unchanged;
+            if(problem.User!=null)
+                unitOfWork.context.Entry(problem.User).State = EntityState.Unchanged;
+            if (problem.Machine != null)
+                unitOfWork.context.Entry(problem.Machine).State = EntityState.Unchanged;
             unitOfWork.Save();
             return problem.Id;
         }
@@ -69,10 +74,14 @@ namespace ProblemTracking.Web.Services
             {
                 problemInvestigate.Problem = unitOfWork.ProblemRepository
                     .FindByCondition(x => x.Id == problemInvestigate.Problem.Id)
-                    .FirstOrDefault(); 
+                    .FirstOrDefault();
             }
 
             unitOfWork.ProblemInvestigateRepository.Create(problemInvestigate);
+            if (problemInvestigate.Problem != null)
+                unitOfWork.context.Entry(problemInvestigate.Problem).State = EntityState.Unchanged;
+            if (problemInvestigate.StepToSolved != null)
+                unitOfWork.context.Entry(problemInvestigate.StepToSolved).State = EntityState.Unchanged;
             unitOfWork.Save();
             return problemInvestigate.Id.ToString();
         }

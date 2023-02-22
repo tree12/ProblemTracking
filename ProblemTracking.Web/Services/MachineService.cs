@@ -27,5 +27,10 @@ namespace ProblemTracking.Web.Services
             mapsterConfig.Default.Ignore("Machine");
             return machines.Adapt<List<MachineViewModel>>(mapsterConfig);
         }
+        public List<InvestigateStepViewModel> GetInvestigateStep(int machineId)
+        {
+            var investigateSteps = unitOfWork.InvestigateStepRepository.Get(x => x.MachineId == machineId).ToList();
+            return investigateSteps.Adapt<List<InvestigateStepViewModel>>();
+        }
     }
 }
