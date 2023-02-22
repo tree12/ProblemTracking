@@ -30,6 +30,17 @@ Nswag studio version 13.17.0.0
     
     role: User
     
+# Overall
+This is the demo program to show how to implement backend(c#) and frontend(Angular) work together. I create this project for problem solving of machine. This system has 2 role Admin and User roles.
+### User role
+Add the problem and how to solve the problem.
+
+<img src="./ProblemTracking.Web/user_screen.png" width="450" />
+
+### Admin role
+View the report how many problems and the status of problems can solve or not.
+
+<img src="./ProblemTracking.Web/admin_screen.png" width="450" />
 
 # How it work
 This project contains 3 project 
