@@ -5,11 +5,12 @@ import { MachineViewModel, InvestigateStepViewModel, ProblemClient, ProblemViewM
 
 @Component({
   selector: 'app-add-problem',
+  standalone: false,
   templateUrl: './add-problem.component.html',
   styleUrls: ['./add-problem.component.css']
 })
 export class AddProblemComponent implements OnInit {
-    problemForm: FormGroup;
+    problemForm!: FormGroup;
     constructor(@Inject(MAT_DIALOG_DATA) public data: MachineViewModel, private formBuilder: FormBuilder, public problemClient: ProblemClient, public dialogRef: MatDialogRef<AddProblemComponent>) {
 
     }

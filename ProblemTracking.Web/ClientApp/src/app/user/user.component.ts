@@ -7,16 +7,17 @@ import { AddProblemComponent } from '../add-problem/add-problem.component';
 
 @Component({
     selector: 'app-user',
+    standalone: false,
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
 
-    user: UserViewModel;
-    machines: MachineViewModel[];
-    problems: ProblemViewModel[];
+    user!: UserViewModel;
+    machines: MachineViewModel[] = [];
+    problems: ProblemViewModel[] = [];
     alreadySave: boolean = false;
-    selectedProblem: ProblemViewModel;
+    selectedProblem!: ProblemViewModel;
     constructor(private authService: AuthService, private machineClient: MachineClient, private problemClient: ProblemClient, public dialog: MatDialog) { }
 
     ngOnInit(): void {

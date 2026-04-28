@@ -4,10 +4,11 @@ import { UserViewModel, ProblemClient, ProblemViewModel, SolveEnum } from '../sh
 
 @Component({
   selector: 'app-fetch-data',
+  standalone: false,
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-  public problems: ProblemViewModel[]
+  public problems: ProblemViewModel[] = [];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private problemClient: ProblemClient) {
 

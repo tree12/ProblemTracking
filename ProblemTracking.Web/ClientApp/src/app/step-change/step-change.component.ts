@@ -4,13 +4,14 @@ import { MachineViewModel, InvestigateStepViewModel, ProblemClient, MachineClien
 
 @Component({
   selector: 'app-step-change',
+  standalone: false,
   templateUrl: './step-change.component.html',
   styleUrls: ['./step-change.component.css']
 })
 export class StepChangeComponent implements OnInit {
-  investigateSteps: InvestigateStepViewModel[];
-  selectInvestigateStep: InvestigateStepViewModel;
-  machineName: string;
+  investigateSteps: InvestigateStepViewModel[] = [];
+  selectInvestigateStep!: InvestigateStepViewModel;
+  machineName?: string;
     constructor(@Inject(MAT_DIALOG_DATA) public data: MachineViewModel, public problemClient: ProblemClient, public machineClient: MachineClient, public dialogRef: MatDialogRef<StepChangeComponent>) { }
 
   ngOnInit(): void {
@@ -26,7 +27,7 @@ export class StepChangeComponent implements OnInit {
     }
       
   }
-  checkValue(event, investigateStep) {
+  checkValue(event: any, investigateStep: InvestigateStepViewModel) {
     //let value = event.currentTarget.checked;
       this.selectInvestigateStep = investigateStep;
       //let problemInvestigate = new ProblemInvestigateViewModel();

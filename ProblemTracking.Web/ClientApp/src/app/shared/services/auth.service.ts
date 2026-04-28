@@ -25,15 +25,15 @@ export class AuthService {
         var reader = new FileReader();
         var self = this;
         reader.onload = function () {
-          //console.log(reader.result);
-          var userDetail = JSON.parse(< string > reader.result);
+          var userDetail = JSON.parse(reader.result as string);
           if (userDetail) {
             localStorage.setItem('authToken', userDetail["token"]);
             self.setUserDetails();
           }
-
         }
-        reader.readAsText(response.data);
+        if (response && response.data) {
+          reader.readAsText(response.data);
+        }
 
         return response;
       }));
@@ -41,9 +41,10 @@ export class AuthService {
   }
 
   setUserDetails() {
-    if (localStorage.getItem('authToken')) {
+    const token = localStorage.getItem('authToken');
+    if (token) {
       const userDetails = new UserViewModel();
-      const decodeUserDetails = JSON.parse(window.atob(localStorage.getItem('authToken').split('.')[1]));
+      const decodeUserDetails = JSON.parse(window.atob(token.split('.')[1]));
 
       userDetails.userName = decodeUserDetails.sub;
       userDetails.firstName = decodeUserDetails.firstName;

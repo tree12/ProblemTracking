@@ -6,15 +6,16 @@ import { UserViewModel } from '../shared/services/generated/api.client.generated
 
 @Component({
   selector: 'app-login',
+  standalone: false,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
   loading = false;
-  loginForm: FormGroup;
+  loginForm!: FormGroup;
   submitted = false;
-  returnUrl: string;
+  returnUrl?: string;
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,

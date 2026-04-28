@@ -4,12 +4,13 @@ import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-nav-menu',
+  standalone: false,
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
   isExpanded = false;
-  user: UserViewModel;
+  user!: UserViewModel;
   constructor(private authService: AuthService) {
     this.authService.userData.subscribe(x =>this.user=x);
   }

@@ -9,7 +9,7 @@ import { UserViewModel } from '../shared/services/generated/api.client.generated
 })
 export class AdminComponent implements OnInit {
 
-  user: UserViewModel;
+  user!: UserViewModel;
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
