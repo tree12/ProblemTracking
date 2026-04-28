@@ -12,3 +12,9 @@
 /ProblemTracking.Repository/obj/Debug/net5.0
 /ProblemTracking.Web/bin/Debug/net5.0
 /ProblemTracking.Repository/obj
+/ProblemTracking.Entity/bin/Debug/net10.0
+/ProblemTracking.Repository/bin/Debug/net10.0
+/ProblemTracking.Web/bin/Debug/net10.0
+/.claude
+/ProblemTracking.Web/ClientApp/.angular/cache/19.2.24/ProblemTracking.Web
+/ProblemTracking.Web/ClientApp/dist
