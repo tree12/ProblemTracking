@@ -1,19 +1,48 @@
-
+# User-specific files
 *.csproj.user
 *.DotSettings.user
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
+# Visual Studio / Rider
+.vs/
+.idea/
 
-/ProblemTracking.Web/ClientApp/node_modules
-/ProblemTracking.Web/obj
-/.vs
-/ProblemTracking.Entity/bin/Debug/net5.0
-/ProblemTracking.Entity/obj
-/ProblemTracking.Repository/bin/Debug/net5.0
-/ProblemTracking.Repository/obj/Debug/net5.0
-/ProblemTracking.Web/bin/Debug/net5.0
-/ProblemTracking.Repository/obj
-/ProblemTracking.Entity/bin/Debug/net10.0
-/ProblemTracking.Repository/bin/Debug/net10.0
-/ProblemTracking.Web/bin/Debug/net10.0
-/ProblemTracking.Web/ClientApp/.angular/cache/19.2.24/ProblemTracking.Web
-/ProblemTracking.Web/ClientApp/dist
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# Test results
+[Tt]est[Rr]esult*/
+BuildLog.*
+*.VisualState.xml
+TestResult.xml
+
+# NuGet
+*.nupkg
+**/[Pp]ackages/*
+
+# Angular / Node
+ProblemTracking.Web/ClientApp/node_modules/
+ProblemTracking.Web/ClientApp/dist/
+ProblemTracking.Web/ClientApp/.angular/
+ProblemTracking.Web/ClientApp/coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs / OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Secrets (never commit)
+appsettings.*.local.json
+*.pem
+*.pfx
